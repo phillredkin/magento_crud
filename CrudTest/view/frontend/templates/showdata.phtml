@@ -1,0 +1,50 @@
+<?php /* @var Form $block */
+
+use GymBeam\CrudTest\Block\Form;
+
+$collection = $block->getCollection();
+if ($collection->count()) {
+    ?>
+    <div class="table-wrapper orders-history">
+        <table class="data table table-order-items history" id="my-orders-table">
+            <caption class="table-caption"><?php echo __('Grid Record') ?></caption>
+            <thead>
+            <tr>
+                <th scope="col" class="col id"><?php echo __('ID') ?></th>
+                <th scope="col" class="col name"><?php echo __('Name') ?></th>
+                <th scope="col" class="col email"><?php echo __('Email') ?></th>
+                <th scope="col" class="col telephone"><?php echo __('Telephone') ?></th>
+                <th scope="col" class="col createat"><?php echo __('Created At') ?></th>
+                <th scope="col" class="col action"><?php echo __('Action') ?></th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php
+            foreach ($collection as $item): ?>
+                <tr>
+                    <td data-th="<?= $block->escapeHtml(__('ID')) ?>" class="col id">
+                        <?php echo $item->getId() ?>
+                    </td>
+                    <td data-th="<?= $block->escapeHtml(__('Name')) ?>" class="col name">
+                        <?php echo $item->getName() ?>
+                    </td>
+                    <td data-th="<?= $block->escapeHtml(__('Email')) ?>" class="col email">
+                        <?php echo $item->getEmail() ?>
+                    </td>
+                    <td data-th="<?= $block->escapeHtml(__('Phone')) ?>" class="col telephone">
+                        <?php echo $item->getPhone() ?>
+                    </td>
+                    <td data-th="<?= $block->escapeHtml(__('Created At')) ?>"
+                        class="col title"><?php echo date('d.m.Y H:m:s', strtotime($item->getCreatedAt())); ?></td>
+                    <td data-th="<?= $block->escapeHtml(__('Action')) ?>" class="col delete">
+                        <a href="<?php echo $block->getDeleteAction() . 'id/' . $item->getId(); ?>"><?php echo __('Delete') ?></a>
+                        <a style="margin-left: 15px" href="<?php echo $block->getEditAction() . 'id/' . $item->getId(); ?>"><?php echo __('Edit') ?></a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+    <?php
+}
+?>

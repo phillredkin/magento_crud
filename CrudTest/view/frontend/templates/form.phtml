@@ -1,0 +1,68 @@
+<?php /* @var Form $block */
+
+use GymBeam\CrudTest\Block\Form;
+
+$data = $block->getAllData();
+$name = '';
+$email = '';
+$telephone = '';
+
+if ($data->getId()) {
+    $name = $data->getName();
+    $email = $data->getEmail();
+    $telephone = $data->getPhone();
+}
+
+?>
+
+<div class="row">
+    <div class="col-md-8">
+        <form name="addData" method="post" id="addData" class="form"
+              action="<?php echo $this->getFormAction(); ?>"
+              data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>"
+              data-mage-init='{"validation":{}}'>
+            <fieldset class="fieldset">
+                <legend class="legend"><span><?= $block->escapeHtmlAttr(__('Fill in form')) ?></span></legend>
+                <fieldset class="fieldset row">
+                    <?php
+                        if ($data->getId()) {
+                    ?>
+                        <input type="hidden" name="id" value="<?php echo $data->getId(); ?>">
+                    <?php } ?>
+                    <div class="fields col-md-6">
+                        <div class="field name required">
+                            <label class="label" for="title"><span><?= $block->
+                                    escapeHtmlAttr(__('Name')) ?></span></label>
+                            <div class="control">
+                                <input name="name" id="name" title="Name" value="<?php echo $name; ?>" class="input-text" type="text"
+                                       data-validate="{required:true, 'validate-alphanum-with-spaces':true}">
+                            </div>
+                        </div>
+                        <div class="field name required">
+                            <label class="label" for="title"><span><?= $block->
+                                    escapeHtmlAttr(__('Email')) ?></span></label>
+                            <div class="control">
+                                <input name="email" id="email" title="Email" value="<?php echo $email; ?>" class="input-text" type="text"
+                                       data-validate="{required:true, 'validate-email':true}">
+                            </div>
+                        </div>
+                        <div class="field name required">
+                            <label class="label" for="title"><span><?= $block->escapeHtmlAttr(__('Telephone')) ?></span></label>
+                            <div class="control">
+                                <input name="phone" id="phone" title="Telephone" value="<?php echo $telephone; ?>" class="input-text"
+                                       type="text" data-validate="{required:true}">
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </fieldset>
+            <div class="actions-toolbar">
+                <div class="primary">
+                    <button type="submit" class="action submit primary" title="Save"><span><?= $block->
+                            escapeHtmlAttr(__('Save')) ?></span></button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
